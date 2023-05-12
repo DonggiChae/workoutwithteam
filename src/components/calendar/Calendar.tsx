@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import classNames from "classnames";
+
 import styles from "./calendar.module.scss";
 
 import ReactCalendar from "react-calendar";
