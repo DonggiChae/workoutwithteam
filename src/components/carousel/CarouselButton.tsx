@@ -11,11 +11,17 @@ export default function SlideButton({ direction, onClick }: SlideButtonProps) {
   return (
     <div>
       {direction == "left" ? (
-        <button onClick={onClick}>
+        <button
+          onClick={onClick}
+          className={`btn-slide-control btn-${direction}`}
+        >
           <Image width={30} height={60} src={LeftArrow} alt="left arrow" />
         </button>
       ) : (
-        <button onClick={onClick}>
+        <button
+          onClick={onClick}
+          className={`btn-slide-control btn-${direction}`}
+        >
           <Image width={30} height={60} src={RightArrow} alt="right arrow" />
         </button>
       )}

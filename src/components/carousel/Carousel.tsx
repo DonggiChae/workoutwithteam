@@ -7,6 +7,8 @@ import useInterval from "@/hooks/useInterval";
 import useWindowSize from "@/hooks/useWindowSize";
 import AlterGrip from "../../../public/images/alter_grip.jpeg";
 
+import "./carousel.css";
+
 type Event = MouseEvent | TouchEvent;
 
 const Carousel = () => {
@@ -128,21 +130,13 @@ const Carousel = () => {
   }
 
   return (
-    <div className=" relative flex items-center justify-center overflow-hidden">
-      <div className="relative block">
-        <div className="absolute left-1/4 top-1/4 z-50 h-20 w-8 rounded-full bg-white p-2 opacity-50">
-          <CarouselButton direction="left" onClick={() => handleSwipe(-1)} />
-        </div>
-        <div className="absolute right-1/4 top-1/4 z-50 h-20 w-8 rounded-full bg-white p-2 opacity-50">
-          <CarouselButton direction="right" onClick={() => handleSwipe(1)} />
-        </div>
-
-        <div
-          className="relative m-0 block h-full overflow-hidden"
-          style={{ padding: sliderPaddingStyle }}
-        >
+    <div className="slider-area">
+      <div className="slider">
+        <CarouselButton direction="left" onClick={() => handleSwipe(-1)} />
+        <CarouselButton direction="right" onClick={() => handleSwipe(1)} />
+        <div className="slider-list" style={{ padding: sliderPaddingStyle }}>
           <div
-            className="relative left-1/2 top-0 flex object-cover text-left"
+            className="slider-track"
             onMouseOver={() => setIsSwiping(true)}
             onMouseOut={() => setIsSwiping(false)}
             style={{
@@ -157,7 +151,9 @@ const Carousel = () => {
               return (
                 <div
                   key={slideIndex}
-                  className="relatives h-96"
+                  className={`slider-item ${
+                    currentIndex === slideIndex ? "current-slide" : ""
+                  }`}
                   style={{ width: newItemWidth || "auto" }}
                   onMouseDown={handleTouchStart}
                   onTouchStart={handleTouchStart}
@@ -168,12 +164,7 @@ const Carousel = () => {
                   onMouseLeave={handleMouseSwipe}
                 >
                   <a>
-                    <Image
-                      width={1000}
-                      height={500}
-                      src={items[itemIndex]}
-                      alt={`banner${itemIndex}`}
-                    />
+                    <Image src={items[itemIndex]} alt={`banner${itemIndex}`} />
                   </a>
                 </div>
               );
