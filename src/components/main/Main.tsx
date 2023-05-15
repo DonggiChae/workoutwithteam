@@ -1,9 +1,11 @@
 import React from "react";
+import Carousel from "../carousel/Carousel";
 
 export default function Main() {
   return (
     <main className="home">
-      <div className="container marketing">
+      <Carousel />
+      <div className=" marketing">
         <hr className="featurette-divider" />
 
         <div className="row featurette">
