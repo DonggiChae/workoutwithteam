@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { Form, Button } from "react-bootstrap";
 import { Team } from "@/types/team";
 import styles from "./CreateTeam.module.scss";
 
@@ -62,53 +61,6 @@ const CreateTeam = () => {
   return (
     <div className={styles.createTeam}>
       <h1>Create a new team</h1>
-
-      <Form onSubmit={onSubmit}>
-        <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter team name"
-            value={formData.name}
-            onChange={onNameChange}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter team description"
-            value={formData.description}
-            onChange={onDescriptionChange}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="url">
-          <Form.Label>Website URL</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter team website URL"
-            value={formData.url}
-            onChange={onUrlChange}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="sports">
-          <Form.Label>Sports</Form.Label>
-          <Form.Select value={formData.sports} onChange={onSportsChange}>
-            <option value="football">Football</option>
-            <option value="basketball">Basketball</option>
-            <option value="baseball">Baseball</option>
-            <option value="hockey">Hockey</option>
-            <option value="tennis">Tennis</option>
-          </Form.Select>
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Create Team
-        </Button>
-      </Form>
     </div>
   );
 };
