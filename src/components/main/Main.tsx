@@ -1,10 +1,10 @@
 import React from "react";
-import Carousel from "../carousel/Carousel";
+import AutoPlay from "../carousel/AutoPlay";
 
 export default function Main() {
   return (
-    <main className="home">
-      <Carousel />
+    <main className="home w-screen">
+      <AutoPlay />
       <div className=" marketing">
         <hr className="featurette-divider" />
 

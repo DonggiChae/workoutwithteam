@@ -1,6 +1,9 @@
 import React, { useState, Fragment } from "react";
 import Link from "next/link";
 
+import TeamDropDown from "./TeamDropDown";
+import PersonalDropDown from "./PersonalDropDown";
+
 const NavBar = () => {
   return (
     <div className=" flex h-14 w-full items-center justify-center bg-white px-1 py-2">
@@ -21,18 +24,8 @@ const NavBar = () => {
             >
               Home
             </Link>
-            <Link
-              href="/team"
-              className="px-4 py-2 font-bold text-gray-500 hover:text-gray-900"
-            >
-              Team
-            </Link>
-            <Link
-              href="/personal"
-              className="px-4 py-2 font-bold text-gray-500 hover:text-gray-900"
-            >
-              Personal
-            </Link>
+            <TeamDropDown />
+            <PersonalDropDown />
           </div>
         </div>
         <div className="flex items-center justify-end gap-1">
