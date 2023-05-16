@@ -1,9 +1,9 @@
 import TeamList from "./TeamList";
 import { Team } from "@/types/team";
 
-// type Props = {
-//   teams: Team[];
-// };
+type Props = {
+  teams: Team[];
+};
 
 export default function TeamPage() {
   const teams: Team[] = [
