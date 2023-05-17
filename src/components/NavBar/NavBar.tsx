@@ -6,7 +6,7 @@ import PersonalDropDown from "./PersonalDropDown";
 
 const NavBar = () => {
   return (
-    <div className=" flex h-14 w-full items-center justify-center bg-white px-1 py-2">
+    <div className="fixed z-50 flex h-14 w-full items-center justify-center bg-white px-1 py-2">
       <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-4 ">
         <div className="flex">
           <div className="ml-5 flex items-center justify-center gap-0.5 self-stretch">

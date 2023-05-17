@@ -1,19 +1,20 @@
 import React from "react";
+import TeamPageCard from "../Cards/TeamPageCard";
 
 export default function MyTeamSideBar() {
   return (
-    <div>
-      <ul className="sidebar-menu">
-        <li>
-          <a href="/home">Home</a>
-        </li>
-        <li>
-          <a href="/about">About</a>
-        </li>
-        <li>
-          <a href="/contact">Contact</a>
-        </li>
-      </ul>
+    <div className="sticky flex w-72 flex-col items-start p-0">
+      <TeamPageCard />
+      <div className="flex h-screen w-72 flex-col items-start gap-8 px-8">
+        <div className="ml-6 flex w-72 flex-col items-start gap-4">
+          <div className="font-bold">My Team </div>
+          <div className="flex flex-col items-start gap-4">
+            <div>Workout</div>
+            <div>Board</div>
+            <div>Group</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
