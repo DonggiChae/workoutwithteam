@@ -7,6 +7,8 @@ interface PageProps {
   setPage: (value: number) => void;
 }
 
+//const [page, setPage] = useState(1);
+// 사용할 페이지에 위처럼 만들어서 값을 넘겨 주어야함
 export default function Pagination({
   page,
   totalPosts,

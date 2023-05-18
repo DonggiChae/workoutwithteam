@@ -7,7 +7,7 @@ import ShareIcon from "@/assets/icons/share1.svg";
 
 export default function TeamPageCard() {
   return (
-    <div className="relative flex h-36 w-96 flex-col items-start justify-center gap-3 bg-white p-10">
+    <div className="relative flex h-36 w-80 flex-col items-start justify-center gap-3 bg-white p-10">
       <div className="flex w-80 flex-row items-center gap-4 pr-8">
         <div className="rounded-full bg-center p-0">
           <Image

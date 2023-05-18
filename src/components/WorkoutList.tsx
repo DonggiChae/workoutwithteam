@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import WorkoutListCard from "./Cards/WorkoutListCard";
+import Pagination from "./Pagination";
 
 const workoutData = [
   {
@@ -29,22 +32,44 @@ const workoutData = [
   },
 ];
 
+interface WorkoutDataProps {
+  date: string;
+  title: string;
+  writer: string;
+}
+
 export default function WorkoutList() {
+  const [page, setPage] = useState(1); //페이지
+  const limit = 10; // posts가 보일 최대한의 갯수
+  const offset = (page - 1) * limit; // 시작점과 끝점을 구하는 offset
+
+  const postsData = (posts: WorkoutDataProps[]) => {
+    if (posts.length > 0) {
+      let result = posts.slice(offset, offset + limit);
+      return result;
+    }
+  };
   return (
-    <div>
-      <h1>Workout List</h1>
-      <div>
+    <div className="flex w-[950px] flex-col items-center">
+      <div className="text-xl font-bold">Workout List</div>
+      <div className="w-full font-bold">
         <WorkoutListCard />
       </div>
       {workoutData.map((workout, index) => (
-        <li key={index}>
+        <div key={index} className="w-full">
           <WorkoutListCard
             date={workout.date}
             title={workout.title}
             writer={workout.writer}
           />
-        </li>
+        </div>
       ))}
+      <Pagination
+        limit={limit}
+        page={page}
+        totalPosts={workoutData.length}
+        setPage={setPage}
+      />
     </div>
   );
 }
