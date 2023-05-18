@@ -47,11 +47,11 @@ export default function TeamDropDown() {
               Main
             </Link>
             <Link
-              href="#"
+              href="/searchTeam"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
             >
-              Service 2
+              Search Teams
             </Link>
             <Link
               href="#"
