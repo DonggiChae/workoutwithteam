@@ -7,6 +7,7 @@ import CheckBoxes from "../CheckBoxes";
 interface SearchTeamSideBarProps {
   onSearch: (query: string) => void;
   checkboxList: CheckboxListProps;
+  onCheckboxChange: (selectedCheckboxes: string[]) => void;
 }
 
 interface Checkbox {
@@ -22,6 +23,7 @@ interface CheckboxListProps {
 export default function SearchTeamSideBar({
   onSearch,
   checkboxList,
+  onCheckboxChange,
 }: SearchTeamSideBarProps) {
   return (
     <div className="sticky flex w-80 flex-col items-start bg-white p-0">
@@ -33,6 +35,7 @@ export default function SearchTeamSideBar({
           <CheckBoxes
             title={checkboxList.title}
             checkboxes={checkboxList.checkboxes}
+            onCheckboxChange={onCheckboxChange}
           />
         </div>
         <div className="ml-6 flex w-80 flex-col items-start gap-4">

@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import SearchTeamSideBar from "@/components/sideBars/SearchTeamSideBar";
 import TeamCard from "@/components/Cards/TeamCard";
-import { toInteger } from "lodash";
 
 interface Team {
   name: string;
@@ -78,42 +77,48 @@ const teams: Team[] = [
 const KindOfWorkout: CheckboxListProps = {
   title: "Workout",
   checkboxes: [
-    { id: "1", label: "CrossFit" },
-    { id: "2", label: "BodyBuilding" },
-    { id: "3", label: "Running" },
+    { id: "CrossFit", label: "CrossFit" },
+    { id: "Functional Training", label: "Functional Training" },
+    { id: "Bodybuilding", label: "Bodybuilding" },
+    { id: "Weight Training", label: "Weight Training" },
+    { id: "Fitness", label: "Fitness" },
+    { id: "Cycling", label: "Cycling" },
+    { id: "Running", label: "Running" },
+    { id: "Gymnastics", label: "Gymnastics" },
+    { id: "Bodyweight Training", label: "Bodyweight Training" },
+    { id: "Walking", label: "Walking" },
+    { id: "Obstacle Course Racing", label: "Obstacle Course Racing" },
+    { id: "Endurance", label: "Endurance" },
   ],
 };
 
 export default function SearchTeam() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [sportFilter, setSportFilter] = useState("");
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
+  const [filteredTeams, setFilteredTeams] = useState<Team[]>([]);
+  const filterItems = () => {
+    const filteredTeams = teams.filter((team) => {
+      if (selectedCheckboxes.length === 0) {
+        return null;
+      }
+      if (selectedCheckboxes.length > 0) {
+        return (
+          (team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            team.description
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())) &&
+          selectedCheckboxes.some((checkbox) => team.sports.includes(checkbox))
+        );
+      }
+      return true;
+    });
 
-  const filteredteams = teams.filter((team) => {
-    if (sportFilter) {
-      return team.sports.includes(sportFilter);
-    }
-
-    if (searchQuery) {
-      return (
-        team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        team.description.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    return true;
-  });
-
-  // const handleSearchInputChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   setSearchQuery(event.target.value);
-  // };
-
-  const handleSportFilterChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSportFilter(event.target.value);
+    setFilteredTeams(filteredTeams);
   };
+
+  useEffect(() => {
+    filterItems();
+  }, [selectedCheckboxes, searchQuery]);
 
   return (
     <div className="flex flex-row ">
@@ -121,34 +126,15 @@ export default function SearchTeam() {
         <SearchTeamSideBar
           onSearch={setSearchQuery}
           checkboxList={KindOfWorkout}
+          onCheckboxChange={setSelectedCheckboxes}
         />
       </div>
       <div className="pl-80">
         <h1>Find Your Sports team</h1>
 
-        <form>
-          {/* <input
-    type="text"
-    placeholder="Search for a team..."
-    value={searchQuery}
-    onChange={handleSearchInputChange}
-  /> */}
-          <select value={sportFilter} onChange={handleSportFilterChange}>
-            <option value="">All Sports</option>
-            <option value="CrossFit">CrossFit</option>
-            <option value="Bodybuilding">Bodybuilding</option>
-            <option value="Cycling">Cycling</option>
-            <option value="Running">Running</option>
-            <option value="Gymnastics">Gymnastics</option>
-            <option value="Obstacle Course Racing">
-              Obstacle Course Racing
-            </option>
-          </select>
-        </form>
-
         <div>
-          {filteredteams.length > 0 ? (
-            filteredteams.map((team) => (
+          {filteredTeams.length > 0 ? (
+            filteredTeams.map((team) => (
               <div key={team.url}>
                 <TeamCard
                   name={team.name}

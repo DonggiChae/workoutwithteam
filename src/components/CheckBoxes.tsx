@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useReducer, use } from "react";
 
 interface Checkbox {
   id: string;
@@ -8,32 +8,70 @@ interface Checkbox {
 interface CheckboxListProps {
   checkboxes: Checkbox[];
   title: string;
+  onCheckboxChange: (selectedCheckboxes: string[]) => void;
 }
 
-export default function CheckBoxes({ checkboxes, title }: CheckboxListProps) {
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+export default function CheckBoxes({
+  checkboxes,
+  title,
+  onCheckboxChange,
+}: CheckboxListProps) {
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setCheckedItems((prevCheckedItems) => [...prevCheckedItems, value]);
+    const checkboxId = event.target.value;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setSelectedCheckboxes((prevSelected) => [...prevSelected, checkboxId]);
     } else {
-      setCheckedItems((prevCheckedItems) =>
-        prevCheckedItems.filter((item) => item !== value)
+      setSelectedCheckboxes((prevSelected) =>
+        prevSelected.filter((id) => id !== checkboxId)
       );
     }
   };
+
+  const handleSelectAllChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      const allCheckboxIds = checkboxes.map((checkbox) => checkbox.id);
+      setSelectedCheckboxes(allCheckboxIds);
+    } else {
+      setSelectedCheckboxes([]);
+    }
+  };
+  useEffect(() => {
+    onCheckboxChange(selectedCheckboxes);
+  }, [selectedCheckboxes]);
+
+  useEffect(() => {
+    const allCheckboxIds = checkboxes.map((checkbox) => checkbox.id);
+    setSelectedCheckboxes(allCheckboxIds);
+  }, []);
+
   return (
     <div className="flex flex-col items-center gap-2">
       <div className="font-bold">{title}</div>
       <div className="flex flex-col items-start gap-2.5">
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={selectedCheckboxes.length === checkboxes.length}
+            onChange={handleSelectAllChange}
+            className="h-5 w-5 "
+          />
+          <span>All</span>
+        </label>
         {checkboxes.length > 0 &&
           checkboxes.map((checkbox) => (
             <label key={checkbox.id} className="flex items-center gap-2">
               <input
                 type="checkbox"
                 value={checkbox.id}
-                checked={checkedItems.includes(checkbox.id)}
+                checked={selectedCheckboxes.includes(checkbox.id)}
                 onChange={handleCheckboxChange}
                 className="h-5 w-5 "
               />
