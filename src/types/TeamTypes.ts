@@ -1,7 +1,7 @@
-export interface Team {
+export interface TeamProps {
   name: string;
   description: string;
-  url: string;
+  id: string;
   sports: string[];
   members: number;
 }

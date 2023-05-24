@@ -22,6 +22,10 @@ export default function TeamDropDown() {
       dispatch(handlePersonalToggle(false));
     }
   };
+  const CloseDropDown = () => {
+    dispatch(handleTeamToggle(false));
+  };
+
   return (
     <div className="relative z-50 inline-block text-left">
       <button
@@ -40,25 +44,28 @@ export default function TeamDropDown() {
             aria-labelledby="options-menu"
           >
             <Link
+              onClick={CloseDropDown}
               href="/team"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
             >
-              Main
+              My Teams
             </Link>
             <Link
-              href="/searchTeam"
+              href="/searchTeams"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
+              onClick={CloseDropDown}
             >
               Search Teams
             </Link>
             <Link
-              href="#"
+              href="/createTeam"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
+              onClick={CloseDropDown}
             >
-              Service 3
+              Create a Team
             </Link>
           </div>
         </div>

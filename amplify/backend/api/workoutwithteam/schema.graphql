@@ -1,0 +1,199 @@
+type User {
+  id: String!
+  name: String!
+  email: String!
+  team: String
+}
+
+type WorkoutTeam @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  teamName: String!
+  description: String
+  sports: [String!]
+  numberOfMembers: Int
+  WorkoutRecord: WorkoutRecord @hasOne
+  members: User
+}
+
+type YogaSets {
+  exerciseName: String
+  sets: String
+  reps: String
+  notes: String
+  intensity: String
+  pain: String
+  equipments: String
+}
+
+type Yoga {
+  exerciseName: String
+  description: String
+  yogaSets: YogaSets
+  intensity: String
+  pain: String
+  notes: String
+  conditions: Conditions
+}
+
+type BobyweightSets {
+  exerciseName: String
+  sets: String
+  reps: String
+  equipment: String
+  intensity: String
+  pain: String
+  notes: String
+}
+
+type BodyweightTraining {
+  exerciseName: String
+  bodyweightSets: [BobyweightSets]
+  intensity: String
+  pain: String
+  notes: String
+  description: String
+  conditions: Conditions
+}
+
+type GymnasticSets {
+  exerciseName: String
+  sets: String
+  reps: String
+  equipment: String
+  notes: String
+  intensity: String
+  pain: String
+}
+
+type Gymnastic {
+  description: String
+  gymnasticSets: [GymnasticSets]
+  intensity: String
+  pain: String
+  notes: String
+  exerciseName: String
+  conditions: Conditions
+}
+
+type PilateSets {
+  exerciseName: String
+  sets: String
+  reps: String
+  equipment: String
+  notes: String
+}
+
+type Pilates {
+  exerciseName: String
+  pilateSets: [PilateSets]
+  intensity: String
+  pain: String
+  notes: String
+  description: String
+  conditions: Conditions
+}
+
+type WeightLiftingSets {
+  load: String
+  sets: String
+  reps: String
+  intensity: String
+  pain: String
+  notes: String
+}
+
+type WeightLifting {
+  exerciseName: String
+  description: String
+  weightlift: [WeightLiftingSets]
+  intensity: String
+  pain: String
+  notes: String
+  conditions: Conditions
+}
+
+type Cycling {
+  exerciseName: String
+  description: String
+  distance: String
+  duration: String
+  intensity: String
+  pain: String
+  notes: String
+  conditions: Conditions
+}
+
+type Running {
+  exerciseName: String
+  description: String
+  distance: String
+  duration: String
+  intensit: String
+  pain: String
+  notes: String
+  conditions: Conditions
+}
+
+type BodyBuildingSets {
+  load: String
+  sets: String
+  reps: String
+  intensity: String
+  pain: String
+  notes: String
+}
+
+type Bodybuilding {
+  exerciseName: String
+  description: String
+  bodybuild: [BodyBuildingSets]
+  intensity: String
+  pain: String
+  notes: String
+  conditions: Conditions
+}
+
+type Scales {
+  equipment: String
+  scale: String
+}
+
+type Crossfit {
+  exerciseName: String
+  description: String
+  scales: [Scales]
+  score: String
+  intensity: String
+  pain: String
+  notes: String
+  conditions: Conditions
+}
+
+type Conditions {
+  before: String
+  during: String
+  after: String
+}
+
+type KindofWorkout {
+  CROSSFIT: Crossfit
+  BODYBUILDING: BodyBuildingSets
+  RUNNING: Running
+  CYCLING: Cycling
+  WEIGHTLIFTING: WeightLiftingSets
+  PILATES: PilateSets
+  GYMNASTICS: GymnasticSets
+  BODYWEIGHTTRAINING: BodyweightTraining
+  YOGA: YogaSets
+}
+
+type WorkoutRecord @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  date: AWSDateTime
+  workout: [KindofWorkout]
+  conditions: Conditions
+  intensity: String
+  pain: String
+  weather: String
+}
+ 

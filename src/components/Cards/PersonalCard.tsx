@@ -1,11 +1,11 @@
 import Image from "next/image";
 import TeamImage from "@/assets/images/Run.jpeg";
 import PeopleIcon from "@/assets/icons/people-empty.svg";
-import HeartIcon from "@/assets/icons/heart-empty.svg";
 import DotMenuIcon from "@/assets/icons/dot-menu-more.svg";
-import ShareIcon from "@/assets/icons/share1.svg";
+// import HeartIcon from "@/assets/icons/heart-empty.svg";
+// import ShareIcon from "@/assets/icons/share1.svg";
 
-export default function TeamPageCard() {
+export default function PersonalCard() {
   return (
     <div className="relative flex h-36 w-80 flex-col items-start justify-center gap-3 bg-white p-10">
       <div className="flex w-80 flex-row items-center gap-4 pr-8">
@@ -41,7 +41,7 @@ export default function TeamPageCard() {
           />
           <p className="text-base text-gray-900"> 99</p>
         </div>
-        <div className="flex flex-row items-center gap-3">
+        {/* <div className="flex flex-row items-center gap-3">
           <Image
             width={24}
             height={24}
@@ -50,7 +50,7 @@ export default function TeamPageCard() {
           />
           <p className="text-base text-gray-900"> 99</p>
         </div>
-        <Image width={24} height={24} src={ShareIcon} alt="Share Icon" />
+        <Image width={24} height={24} src={ShareIcon} alt="Share Icon" /> */}
       </div>
     </div>
   );

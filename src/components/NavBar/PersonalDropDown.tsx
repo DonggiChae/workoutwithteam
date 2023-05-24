@@ -22,6 +22,11 @@ export default function PersonalDropDown() {
       dispatch(handleTeamToggle(false));
     }
   };
+
+  const CloseDropDown = () => {
+    dispatch(handlePersonalToggle(false));
+  };
+
   return (
     <div className="relative z-50 inline-block text-left">
       <button
@@ -43,13 +48,15 @@ export default function PersonalDropDown() {
               href="/personal"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
+              onClick={CloseDropDown}
             >
-              Main
+              My Record
             </Link>
             <Link
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
+              onClick={CloseDropDown}
             >
               Service 2
             </Link>
@@ -57,6 +64,7 @@ export default function PersonalDropDown() {
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
+              onClick={CloseDropDown}
             >
               Service 3
             </Link>

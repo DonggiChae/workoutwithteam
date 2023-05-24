@@ -56,7 +56,7 @@ const Calendar = () => {
           }
         }}
       />
-      <div className="text-gray-500 mt-4">{koreanDate}</div>
+      {/* <div className="mt-4 text-gray-500">{koreanDate}</div> */}
     </div>
   );
 };

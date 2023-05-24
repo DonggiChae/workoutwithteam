@@ -1,5 +1,5 @@
 import React from "react";
-import TeamPageCard from "../Cards/TeamPageCard";
+import TeamPageCard from "../cards/TeamPageCard";
 
 export default function MyTeamSideBar() {
   return (
