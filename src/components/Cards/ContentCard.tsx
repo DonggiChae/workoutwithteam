@@ -6,7 +6,13 @@ import TextTruncate from "../primitives/TextTruncate";
 export default function ContentCard() {
   return (
     <div className="flex flex-col items-center justify-center">
-      <Image src={Tricep} width={450} height={450} alt="content main image" />
+      <Image
+        src={Tricep}
+        width={450}
+        height={450}
+        alt="content main image"
+        priority={false}
+      />
       <div>
         <div>
           <h1>Tricep Exercises</h1>

@@ -29,9 +29,9 @@ export default function MyTeamList() {
 
       {teams.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {teams.map((team) => {
+          {teams.map((team, index) => {
             return (
-              <div>
+              <div key={index}>
                 <Link href={`/team/${team.id}`} key={team.id}>
                   <ListTeamCard
                     name={team.name}

@@ -1,9 +1,11 @@
 import React from "react";
 import PersonalSideBar from "@/components/sideBars/PersonalSideBar";
+// import Profile from "@/components/personal/Profile";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-row">
+      {/* <Profile></Profile> */}
       <div className="fixed z-40 pt-14">
         <PersonalSideBar />
       </div>

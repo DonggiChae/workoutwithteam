@@ -3,6 +3,12 @@ import { Providers } from "@/redux/provider";
 import NavBar from "@/components/NavBar/NavBar";
 import "../styles/global.css";
 
+//aws
+import { Amplify } from "aws-amplify";
+import awsconfig from "@/aws-exports";
+import "@aws-amplify/ui-react/styles.css";
+Amplify.configure({ ...awsconfig, ssr: true });
+
 export const metadata: Metadata = {
   title: "Workout with Team",
   description:
