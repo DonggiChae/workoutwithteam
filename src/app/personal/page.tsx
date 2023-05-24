@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-import awsExports from "@/aws-exports";
+import awsExports from "../../aws-exports";
 
 Amplify.configure({ ...awsExports, ssr: true });
 
