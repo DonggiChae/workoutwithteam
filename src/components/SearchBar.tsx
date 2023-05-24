@@ -31,7 +31,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
       />
       <Image
         width={36}
-        height={32}
+        height={36}
         src={SearchIcon}
         alt="Search"
         // onClick={handleSearch}

@@ -15,6 +15,7 @@ export default function TeamPageCard() {
             height={80}
             src={TeamImage}
             alt="Team Image"
+            priority={false}
             className="h-20 max-w-none rounded-full bg-cover"
           />
         </div>

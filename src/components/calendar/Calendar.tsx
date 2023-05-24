@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback, useState } from "react";
 
 import styles from "./calendar.module.scss";
@@ -51,7 +53,7 @@ const Calendar = () => {
           const day = String(date.getDate()).padStart(2, "0");
 
           if (marks.find((x) => x === `${year}-${month}-${day}`)) {
-            console.log(`${year}-${month}-${day}`);
+            // console.log(`${year}-${month}-${day}`);
             return [styles.highlight];
           }
         }}

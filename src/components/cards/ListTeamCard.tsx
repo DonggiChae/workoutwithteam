@@ -15,11 +15,12 @@ export default function ListTeamCard({
   return (
     <div className="flex h-[360px] w-60 flex-col items-start  gap-4 bg-white">
       <Image
-        width={200}
+        width={240}
         height={200}
         alt="Main Team Photo"
         src={TeamImage}
         style={{ objectFit: "cover" }}
+        priority={false}
         className="h-[200px] w-[240px] bg-center object-cover"
       />
 

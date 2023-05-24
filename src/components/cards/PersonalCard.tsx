@@ -15,6 +15,8 @@ export default function PersonalCard() {
             height={80}
             src={TeamImage}
             alt="Team Image"
+            priority={false}
+            quality={50}
             className="h-20 max-w-none rounded-full bg-cover"
           />
         </div>

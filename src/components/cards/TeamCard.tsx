@@ -22,6 +22,8 @@ export default function TeamCard({
         height={240}
         alt="Main Team Photo"
         src={TeamImage}
+        priority={false}
+        quality={25}
         style={{ objectFit: "cover" }}
         className="h-[240px] w-[240px] bg-center object-cover"
       />
