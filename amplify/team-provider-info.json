@@ -17,6 +17,9 @@
       },
       "storage": {
         "s3workoutwithteamstorageafb7f0e8": {}
+      },
+      "api": {
+        "workoutwithteam": {}
       }
     }
   }
