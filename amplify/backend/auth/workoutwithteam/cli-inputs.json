@@ -41,16 +41,11 @@
     "usernameAttributes": [
       "email"
     ],
-    "useDefault": "defaultSocial",
+    "useDefault": "manual",
     "userPoolGroups": false,
     "userPoolGroupList": [],
     "adminQueries": false,
     "hostedUI": true,
-    "hostedUIDomainName": "phiak7hb8rnk",
-    "authProvidersUserPool": [
-      "Google"
-    ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"family_name\":\"family_name\",\"given_name\":\"given_name\",\"name\":\"name\",\"phone_number\":\"phoneNumbers\",\"birthdate\":\"birthdays\",\"username\":\"sub\"}}]",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
     "authRoleArn": {
@@ -67,7 +62,13 @@
     },
     "breakCircularDependency": true,
     "dependsOn": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://main.dgrn7olwagh3e.amplifyapp.com\",\"http://localhost:3000\"],\"LogoutURLs\":[\"https://main.dgrn7olwagh3e.amplifyapp.com\",\"http://localhost:3000\"]}",
-    "authProviders": []
+    "authProviders": [],
+    "thirdPartyAuth": false,
+    "hostedUIDomainName": "5ytu9vpch1ps",
+    "authProvidersUserPool": [
+      "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"family_name\":\"family_name\",\"given_name\":\"given_name\",\"name\":\"name\",\"phone_number\":\"phoneNumbers\",\"birthdate\":\"birthdays\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://main.dgrn7olwagh3e.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://main.dgrn7olwagh3e.amplifyapp.com/\"]}"
   }
 }
