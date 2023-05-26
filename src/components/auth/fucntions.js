@@ -1,5 +1,4 @@
-import { Auth } from "aws-amplify";
-import { Hub } from "aws-amplify";
+import { Auth, Hub } from "aws-amplify";
 
 export function listenToAutoSignInEvent() {
   Hub.listen("auth", ({ payload }) => {

@@ -6,9 +6,10 @@ import "./react-slick/slick-docs.css";
 
 export default function AutoPlay() {
   const settings = {
+    className: "center",
     dots: true,
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -16,7 +17,6 @@ export default function AutoPlay() {
   };
   return (
     <div>
-      <h2>Pause On Hover</h2>
       <Slider {...settings}>
         <div>
           <h3>1</h3>

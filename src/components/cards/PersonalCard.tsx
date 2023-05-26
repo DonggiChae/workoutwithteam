@@ -5,6 +5,14 @@ import DotMenuIcon from "@/assets/icons/dot-menu-more.svg";
 // import HeartIcon from "@/assets/icons/heart-empty.svg";
 // import ShareIcon from "@/assets/icons/share1.svg";
 
+//aws
+import { Amplify, withSSRContext, Auth } from "aws-amplify";
+import "@aws-amplify/ui-react/styles.css";
+
+import awsExports from "../../aws-exports";
+
+Amplify.configure({ ...awsExports, ssr: true });
+
 export default function PersonalCard() {
   return (
     <div className="relative flex h-36 w-80 flex-col items-start justify-center gap-3 bg-white p-10">
@@ -27,7 +35,12 @@ export default function PersonalCard() {
               <div className="text-lg font-medium text-gray-900">Name</div>
             </div>
             <div className="flex-grow">
-              <Image width={24} height={24} src={DotMenuIcon} alt="More menu" />
+              <button
+                className="x flex flex-row items-center  justify-center rounded bg-slate-300 px-1 py-1 text-xs text-white hover:bg-slate-400"
+                onClick={() => Auth.signOut()}
+              >
+                Sign Out
+              </button>
             </div>
           </div>
           <p className="text-base text-gray-900">ID#12341234</p>
