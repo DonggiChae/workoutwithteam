@@ -1,26 +1,48 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncItem } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
 
 
 
-type EagerUser = {
-  readonly id: string;
-  readonly name: string;
-  readonly email: string;
-  readonly team?: string | null;
+type EagerPhotoS3Info = {
+  readonly key: string;
+  readonly width: number;
+  readonly height: number;
 }
 
-type LazyUser = {
-  readonly id: string;
-  readonly name: string;
-  readonly email: string;
-  readonly team?: string | null;
+type LazyPhotoS3Info = {
+  readonly key: string;
+  readonly width: number;
+  readonly height: number;
 }
 
-export declare type User = LazyLoading extends LazyLoadingDisabled ? EagerUser : LazyUser
+export declare type PhotoS3Info = LazyLoading extends LazyLoadingDisabled ? EagerPhotoS3Info : LazyPhotoS3Info
 
-export declare const User: (new (init: ModelInit<User>) => User)
+export declare const PhotoS3Info: (new (init: ModelInit<PhotoS3Info>) => PhotoS3Info)
+
+type EagerMember = {
+  readonly id: string;
+  readonly familyName: string;
+  readonly email: string;
+  readonly nickName: string;
+  readonly phoneNumber?: string | null;
+  readonly birthDay?: string | null;
+  readonly givenName: string;
+}
+
+type LazyMember = {
+  readonly id: string;
+  readonly familyName: string;
+  readonly email: string;
+  readonly nickName: string;
+  readonly phoneNumber?: string | null;
+  readonly birthDay?: string | null;
+  readonly givenName: string;
+}
+
+export declare type Member = LazyLoading extends LazyLoadingDisabled ? EagerMember : LazyMember
+
+export declare const Member: (new (init: ModelInit<Member>) => Member)
 
 type EagerYogaSets = {
   readonly exerciseName?: string | null;
@@ -438,6 +460,88 @@ export declare type KindofWorkout = LazyLoading extends LazyLoadingDisabled ? Ea
 
 export declare const KindofWorkout: (new (init: ModelInit<KindofWorkout>) => KindofWorkout)
 
+type EagerUser = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<User, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly familyName: string;
+  readonly givenName: string;
+  readonly email: string;
+  readonly nickName: string;
+  readonly phoneNumber: string;
+  readonly untitledfield: string;
+  readonly birthDay: string;
+  readonly team?: (string | null)[] | null;
+  readonly WorkoutTeams?: (WorkoutTeam | null)[] | null;
+  readonly WorkoutRecords?: (WorkoutRecord | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyUser = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<User, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly familyName: string;
+  readonly givenName: string;
+  readonly email: string;
+  readonly nickName: string;
+  readonly phoneNumber: string;
+  readonly untitledfield: string;
+  readonly birthDay: string;
+  readonly team?: (string | null)[] | null;
+  readonly WorkoutTeams: AsyncCollection<WorkoutTeam>;
+  readonly WorkoutRecords: AsyncCollection<WorkoutRecord>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type User = LazyLoading extends LazyLoadingDisabled ? EagerUser : LazyUser
+
+export declare const User: (new (init: ModelInit<User>) => User) & {
+  copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
+}
+
+type EagerTeamPhoto = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TeamPhoto, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly bucket: string;
+  readonly fullsize?: PhotoS3Info | null;
+  readonly thumbnail?: string | null;
+  readonly WorkoutTeam?: WorkoutTeam | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly teamPhotoWorkoutTeamId?: string | null;
+}
+
+type LazyTeamPhoto = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<TeamPhoto, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly bucket: string;
+  readonly fullsize?: PhotoS3Info | null;
+  readonly thumbnail?: string | null;
+  readonly WorkoutTeam: AsyncItem<WorkoutTeam | undefined>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly teamPhotoWorkoutTeamId?: string | null;
+}
+
+export declare type TeamPhoto = LazyLoading extends LazyLoadingDisabled ? EagerTeamPhoto : LazyTeamPhoto
+
+export declare const TeamPhoto: (new (init: ModelInit<TeamPhoto>) => TeamPhoto) & {
+  copyOf(source: TeamPhoto, mutator: (draft: MutableModel<TeamPhoto>) => MutableModel<TeamPhoto> | void): TeamPhoto;
+}
+
 type EagerWorkoutTeam = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<WorkoutTeam, 'id'>;
@@ -449,7 +553,8 @@ type EagerWorkoutTeam = {
   readonly sports?: string[] | null;
   readonly numberOfMembers?: number | null;
   readonly WorkoutRecord?: WorkoutRecord | null;
-  readonly members?: User | null;
+  readonly members?: Member | null;
+  readonly userID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly workoutTeamWorkoutRecordId?: string | null;
@@ -466,7 +571,8 @@ type LazyWorkoutTeam = {
   readonly sports?: string[] | null;
   readonly numberOfMembers?: number | null;
   readonly WorkoutRecord: AsyncItem<WorkoutRecord | undefined>;
-  readonly members?: User | null;
+  readonly members?: Member | null;
+  readonly userID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly workoutTeamWorkoutRecordId?: string | null;
@@ -490,6 +596,7 @@ type EagerWorkoutRecord = {
   readonly intensity?: string | null;
   readonly pain?: string | null;
   readonly weather?: string | null;
+  readonly userID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -506,6 +613,7 @@ type LazyWorkoutRecord = {
   readonly intensity?: string | null;
   readonly pain?: string | null;
   readonly weather?: string | null;
+  readonly userID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

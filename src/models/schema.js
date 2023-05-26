@@ -1,5 +1,246 @@
 export const schema = {
     "models": {
+        "User": {
+            "name": "User",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "familyName": {
+                    "name": "familyName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "givenName": {
+                    "name": "givenName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "nickName": {
+                    "name": "nickName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "phoneNumber": {
+                    "name": "phoneNumber",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "untitledfield": {
+                    "name": "untitledfield",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "birthDay": {
+                    "name": "birthDay",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "team": {
+                    "name": "team",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "WorkoutTeams": {
+                    "name": "WorkoutTeams",
+                    "isArray": true,
+                    "type": {
+                        "model": "WorkoutTeam"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "userID"
+                        ]
+                    }
+                },
+                "WorkoutRecords": {
+                    "name": "WorkoutRecords",
+                    "isArray": true,
+                    "type": {
+                        "model": "WorkoutRecord"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "userID"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Users",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "TeamPhoto": {
+            "name": "TeamPhoto",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "bucket": {
+                    "name": "bucket",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "fullsize": {
+                    "name": "fullsize",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "PhotoS3Info"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "thumbnail": {
+                    "name": "thumbnail",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "WorkoutTeam": {
+                    "name": "WorkoutTeam",
+                    "isArray": false,
+                    "type": {
+                        "model": "WorkoutTeam"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": [
+                            "id"
+                        ],
+                        "targetNames": [
+                            "teamPhotoWorkoutTeamId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "teamPhotoWorkoutTeamId": {
+                    "name": "teamPhotoWorkoutTeamId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "TeamPhotos",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "WorkoutTeam": {
             "name": "WorkoutTeam",
             "fields": {
@@ -61,9 +302,16 @@ export const schema = {
                     "name": "members",
                     "isArray": false,
                     "type": {
-                        "nonModel": "User"
+                        "nonModel": "Member"
                     },
                     "isRequired": false,
+                    "attributes": []
+                },
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -96,6 +344,15 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userID"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -172,6 +429,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -197,6 +461,15 @@ export const schema = {
                     "properties": {}
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userID"
+                        ]
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -217,8 +490,34 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {
-        "User": {
-            "name": "User",
+        "PhotoS3Info": {
+            "name": "PhotoS3Info",
+            "fields": {
+                "key": {
+                    "name": "key",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "width": {
+                    "name": "width",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "height": {
+                    "name": "height",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
+        },
+        "Member": {
+            "name": "Member",
             "fields": {
                 "id": {
                     "name": "id",
@@ -227,8 +526,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "name": {
-                    "name": "name",
+                "familyName": {
+                    "name": "familyName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -241,11 +540,32 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "team": {
-                    "name": "team",
+                "nickName": {
+                    "name": "nickName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "phoneNumber": {
+                    "name": "phoneNumber",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
+                    "attributes": []
+                },
+                "birthDay": {
+                    "name": "birthDay",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "givenName": {
+                    "name": "givenName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
                     "attributes": []
                 }
             }
@@ -1224,5 +1544,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.3",
-    "version": "4aebb68b485bfeaba266086ee043a627"
+    "version": "2a54f4e4ecd4b3cd63d063429e873b19"
 };

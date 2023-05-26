@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Button from "../buttons/Button";
 
+import { Storage } from "aws-amplify";
+
 export default function FormCreateTeam() {
   const [teamName, setTeamName] = useState("");
   const [sport, setSport] = useState("");
@@ -11,6 +13,101 @@ export default function FormCreateTeam() {
   const [teamDescription, setTeamDescription] = useState("");
   const [hashtag, setHashtag] = useState("");
   const [isPublic, setIsPublic] = useState(true);
+
+  const uploadPhoto = async (file: File) => {
+    try {
+      const filename = `${Date.now()}_${file.name}`;
+      const result = await Storage.put(filename, file, {
+        contentType: file.type,
+      });
+      setTeamPhoto(result.key);
+    } catch (error) {
+      console.error("Error uploading photo: ", error);
+    }
+  };
+
+  const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      handlePhotoUpload(file);
+    }
+  };
+
+  const resizeImage = async (file: File): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_SIZE = 1080;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_SIZE) {
+            height *= MAX_SIZE / width;
+            width = MAX_SIZE;
+          }
+        } else {
+          if (height > MAX_SIZE) {
+            width *= MAX_SIZE / height;
+            height = MAX_SIZE;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx?.drawImage(img, 0, 0, width, height);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const resizedFile = new File([blob], file.name, {
+              type: file.type,
+              lastModified: Date.now(),
+            });
+            resolve(resizedFile);
+          } else {
+            reject(new Error("Failed to resize image."));
+          }
+        }, file.type);
+      };
+      img.onerror = () => {
+        reject(new Error("Failed to load image dimensions."));
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  const getImageDimensions = (
+    file: File
+  ): Promise<{ width: number; height: number }> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        resolve({ width: img.width, height: img.height });
+      };
+      img.onerror = () => {
+        reject(new Error("Failed to load image dimensions."));
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  const handlePhotoUpload = async (file: File) => {
+    try {
+      const { width, height } = await getImageDimensions(file);
+
+      // 사진 크기가 1080 x 1080 이하이거나 이미 1:1 비율인 경우
+      if (width <= 1080 && height <= 1080 && width === height) {
+        uploadPhoto(file);
+      } else {
+        // 사진 크기가 클 경우 리사이징하여 업로드
+        const resizedFile = await resizeImage(file);
+        uploadPhoto(resizedFile);
+      }
+    } catch (error) {
+      console.error("Error uploading photo: ", error);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,9 +173,8 @@ export default function FormCreateTeam() {
             <label htmlFor="teamPhoto">Team Photo</label>
             <input
               id="teamPhoto"
-              type="text"
-              value={teamPhoto}
-              onChange={(e) => setTeamPhoto(e.target.value)}
+              type="file"
+              onChange={handlePhotoChange}
               className="border"
             />
           </div>

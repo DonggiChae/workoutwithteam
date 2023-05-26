@@ -1,5 +1,4 @@
 import FormCreateTeam from "@/components/forms/FormCreateTeam";
-import MainTeamSideBar from "@/components/sideBars/MainTeamSideBar";
 
 export default function Page() {
   return (
