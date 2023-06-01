@@ -7,50 +7,51 @@
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { User } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type UserUpdateFormInputValues = {
+export declare type UserInfoCreateFormInputValues = {
     familyName?: string;
     givenName?: string;
     email?: string;
-    nickName?: string;
     phoneNumber?: string;
-    birthDay?: string;
-    team?: string[];
+    birthday?: string;
+    sub?: string;
+    createdAt?: string;
+    updateAt?: string;
 };
-export declare type UserUpdateFormValidationValues = {
+export declare type UserInfoCreateFormValidationValues = {
     familyName?: ValidationFunction<string>;
     givenName?: ValidationFunction<string>;
     email?: ValidationFunction<string>;
-    nickName?: ValidationFunction<string>;
     phoneNumber?: ValidationFunction<string>;
-    birthDay?: ValidationFunction<string>;
-    team?: ValidationFunction<string>;
+    birthday?: ValidationFunction<string>;
+    sub?: ValidationFunction<string>;
+    createdAt?: ValidationFunction<string>;
+    updateAt?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type UserUpdateFormOverridesProps = {
-    UserUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+export declare type UserInfoCreateFormOverridesProps = {
+    UserInfoCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     familyName?: PrimitiveOverrideProps<TextFieldProps>;
     givenName?: PrimitiveOverrideProps<TextFieldProps>;
     email?: PrimitiveOverrideProps<TextFieldProps>;
-    nickName?: PrimitiveOverrideProps<TextFieldProps>;
     phoneNumber?: PrimitiveOverrideProps<TextFieldProps>;
-    birthDay?: PrimitiveOverrideProps<TextFieldProps>;
-    team?: PrimitiveOverrideProps<TextFieldProps>;
+    birthday?: PrimitiveOverrideProps<TextFieldProps>;
+    sub?: PrimitiveOverrideProps<TextFieldProps>;
+    createdAt?: PrimitiveOverrideProps<TextFieldProps>;
+    updateAt?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type UserUpdateFormProps = React.PropsWithChildren<{
-    overrides?: UserUpdateFormOverridesProps | undefined | null;
+export declare type UserInfoCreateFormProps = React.PropsWithChildren<{
+    overrides?: UserInfoCreateFormOverridesProps | undefined | null;
 } & {
-    id?: string;
-    user?: User;
-    onSubmit?: (fields: UserUpdateFormInputValues) => UserUpdateFormInputValues;
-    onSuccess?: (fields: UserUpdateFormInputValues) => void;
-    onError?: (fields: UserUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: UserUpdateFormInputValues) => UserUpdateFormInputValues;
-    onValidate?: UserUpdateFormValidationValues;
+    clearOnSuccess?: boolean;
+    onSubmit?: (fields: UserInfoCreateFormInputValues) => UserInfoCreateFormInputValues;
+    onSuccess?: (fields: UserInfoCreateFormInputValues) => void;
+    onError?: (fields: UserInfoCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: UserInfoCreateFormInputValues) => UserInfoCreateFormInputValues;
+    onValidate?: UserInfoCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function UserUpdateForm(props: UserUpdateFormProps): React.ReactElement;
+export default function UserInfoCreateForm(props: UserInfoCreateFormProps): React.ReactElement;

@@ -3,38 +3,43 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "workou4df47a3d",
+    "resourceNameTruncated": "workouad52ebb7",
     "userPoolName": "workoutwithteam",
     "autoVerifiedAttributes": [
       "email"
     ],
-    "mfaConfiguration": "OFF",
+    "mfaConfiguration": "OPTIONAL",
     "mfaTypes": [
-      "SMS Text Message"
+      "SMS Text Message",
+      "TOTP"
     ],
-    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsAuthenticationMessage": "Your login code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Verification code: {####}",
+    "emailVerificationMessage": "Verification code: {####}",
     "defaultPasswordPolicy": false,
-    "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [],
+    "passwordPolicyMinLength": 10,
+    "passwordPolicyCharacters": [
+      "Requires Lowercase",
+      "Requires Numbers",
+      "Requires Symbols",
+      "Requires Uppercase"
+    ],
     "requiredAttributes": [
       "email",
+      "birthdate",
       "family_name",
-      "given_name",
-      "name",
       "phone_number",
-      "birthdate"
+      "given_name"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "workou4df47a3d_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "workouad52ebb7_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "4df47a3d",
+    "sharedId": "ad52ebb7",
     "resourceName": "workoutwithteam",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
@@ -45,7 +50,15 @@
     "userPoolGroups": false,
     "userPoolGroupList": [],
     "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
     "hostedUI": true,
+    "hostedUIDomainName": "73f7ohyaylsy",
+    "authProvidersUserPool": [
+      "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"birthdate\":\"birthdays\",\"family_name\":\"family_name\",\"phone_number\":\"phoneNumbers\",\"given_name\":\"given_name\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000\",\"https://main.d18itjv7ddk6ne.amplifyapp.com\"],\"LogoutURLs\":[\"http://localhost:3000\",\"https://main.d18itjv7ddk6ne.amplifyapp.com\"]}",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
     "authRoleArn": {
@@ -61,14 +74,6 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [],
-    "authProviders": [],
-    "thirdPartyAuth": false,
-    "hostedUIDomainName": "5ytu9vpch1ps",
-    "authProvidersUserPool": [
-      "Google"
-    ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"family_name\":\"family_name\",\"given_name\":\"given_name\",\"name\":\"name\",\"phone_number\":\"phoneNumbers\",\"birthdate\":\"birthdays\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://main.dgrn7olwagh3e.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://main.dgrn7olwagh3e.amplifyapp.com/\"]}"
+    "dependsOn": []
   }
 }

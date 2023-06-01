@@ -6,7 +6,7 @@ import DotMenuIcon from "@/assets/icons/dot-menu-more.svg";
 // import ShareIcon from "@/assets/icons/share1.svg";
 
 //aws
-import { Amplify, withSSRContext, Auth } from "aws-amplify";
+import { Amplify, Auth } from "aws-amplify";
 import "@aws-amplify/ui-react/styles.css";
 
 import awsExports from "../../aws-exports";

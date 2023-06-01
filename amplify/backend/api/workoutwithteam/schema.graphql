@@ -1,50 +1,23 @@
-type User @model @auth(rules: [{allow: public}]) {
+type UserInfo @model @auth(rules: [{ allow: public }]) {
   id: ID!
   familyName: String!
   givenName: String!
   email: String!
-  nickName: String!
   phoneNumber: String!
-  untitledfield: String!
-  birthDay: String!
-  team: [String]
-  WorkoutTeams: [WorkoutTeam] @hasMany(indexName: "byUser", fields: ["id"])
-  WorkoutRecords: [WorkoutRecord] @hasMany(indexName: "byUser", fields: ["id"])
+  birthday: String
+  sub: String!
+  createdAt: String
+  updateAt: String
 }
 
-type PhotoS3Info {
-  key: String!
-  width: Int!
-  height: Int!
-}
-
-type TeamPhoto @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  bucket: String!
-  fullsize: PhotoS3Info
-  thumbnail: String
-  WorkoutTeam: WorkoutTeam @hasOne
-}
-
-type Member {
-  id: String!
-  familyName: String!
-  email: String!
-  nickName: String!
-  phoneNumber: String
-  birthDay: String
-  givenName: String!
-}
-
-type WorkoutTeam @model @auth(rules: [{allow: public}]) {
+type WorkoutTeam @model @auth(rules: [{ allow: public }]) {
   id: ID!
   teamName: String!
   description: String
   sports: [String!]
   numberOfMembers: Int
   WorkoutRecord: WorkoutRecord @hasOne
-  members: Member
-  userID: ID! @index(name: "byUser")
+  members: String!
 }
 
 type YogaSets {
@@ -219,7 +192,7 @@ type KindofWorkout {
   YOGA: YogaSets
 }
 
-type WorkoutRecord @model @auth(rules: [{allow: public}]) {
+type WorkoutRecord @model @auth(rules: [{ allow: public }]) {
   id: ID!
   date: AWSDateTime
   workout: [KindofWorkout]
@@ -227,6 +200,4 @@ type WorkoutRecord @model @auth(rules: [{allow: public}]) {
   intensity: String
   pain: String
   weather: String
-  userID: ID! @index(name: "byUser")
 }
- 

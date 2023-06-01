@@ -17,12 +17,14 @@ export declare type WorkoutTeamCreateFormInputValues = {
     description?: string;
     sports?: string[];
     numberOfMembers?: number;
+    members?: string;
 };
 export declare type WorkoutTeamCreateFormValidationValues = {
     teamName?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     sports?: ValidationFunction<string>;
     numberOfMembers?: ValidationFunction<number>;
+    members?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type WorkoutTeamCreateFormOverridesProps = {
@@ -31,6 +33,7 @@ export declare type WorkoutTeamCreateFormOverridesProps = {
     description?: PrimitiveOverrideProps<TextFieldProps>;
     sports?: PrimitiveOverrideProps<TextFieldProps>;
     numberOfMembers?: PrimitiveOverrideProps<TextFieldProps>;
+    members?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type WorkoutTeamCreateFormProps = React.PropsWithChildren<{
     overrides?: WorkoutTeamCreateFormOverridesProps | undefined | null;

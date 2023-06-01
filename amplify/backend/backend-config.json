@@ -27,21 +27,26 @@
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "OPTIONAL",
         "mfaTypes": [
-          "SMS"
+          "SMS",
+          "TOTP"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 8
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ],
+          "passwordPolicyMinLength": 10
         },
         "signupAttributes": [
           "EMAIL",
+          "BIRTHDATE",
           "FAMILY_NAME",
-          "GIVEN_NAME",
-          "NAME",
           "PHONE_NUMBER",
-          "BIRTHDATE"
+          "GIVEN_NAME"
         ],
         "socialProviders": [
           "GOOGLE"
@@ -57,8 +62,33 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "CreateUserData": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_CreateUserData_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CreateUserData"
+        }
+      ]
+    },
+    "AMPLIFY_function_CreateUserData_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CreateUserData"
+        }
+      ]
+    }
+  },
   "storage": {
-    "s3workoutwithteamstorageafb7f0e8": {
+    "s3workoutwithteamstoragead190a61": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

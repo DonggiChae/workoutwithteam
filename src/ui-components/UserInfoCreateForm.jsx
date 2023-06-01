@@ -6,181 +6,12 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Badge,
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  Icon,
-  ScrollView,
-  Text,
-  TextField,
-  useTheme,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { User } from "../models";
+import { UserInfo } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-function ArrayField({
-  items = [],
-  onChange,
-  label,
-  inputFieldRef,
-  children,
-  hasError,
-  setFieldValue,
-  currentFieldValue,
-  defaultFieldValue,
-  lengthLimit,
-  getBadgeText,
-  errorMessage,
-}) {
-  const labelElement = <Text>{label}</Text>;
-  const {
-    tokens: {
-      components: {
-        fieldmessages: { error: errorStyles },
-      },
-    },
-  } = useTheme();
-  const [selectedBadgeIndex, setSelectedBadgeIndex] = React.useState();
-  const [isEditing, setIsEditing] = React.useState();
-  React.useEffect(() => {
-    if (isEditing) {
-      inputFieldRef?.current?.focus();
-    }
-  }, [isEditing]);
-  const removeItem = async (removeIndex) => {
-    const newItems = items.filter((value, index) => index !== removeIndex);
-    await onChange(newItems);
-    setSelectedBadgeIndex(undefined);
-  };
-  const addItem = async () => {
-    if (
-      currentFieldValue !== undefined &&
-      currentFieldValue !== null &&
-      currentFieldValue !== "" &&
-      !hasError
-    ) {
-      const newItems = [...items];
-      if (selectedBadgeIndex !== undefined) {
-        newItems[selectedBadgeIndex] = currentFieldValue;
-        setSelectedBadgeIndex(undefined);
-      } else {
-        newItems.push(currentFieldValue);
-      }
-      await onChange(newItems);
-      setIsEditing(false);
-    }
-  };
-  const arraySection = (
-    <React.Fragment>
-      {!!items?.length && (
-        <ScrollView height="inherit" width="inherit" maxHeight={"7rem"}>
-          {items.map((value, index) => {
-            return (
-              <Badge
-                key={index}
-                style={{
-                  cursor: "pointer",
-                  alignItems: "center",
-                  marginRight: 3,
-                  marginTop: 3,
-                  backgroundColor:
-                    index === selectedBadgeIndex ? "#B8CEF9" : "",
-                }}
-                onClick={() => {
-                  setSelectedBadgeIndex(index);
-                  setFieldValue(items[index]);
-                  setIsEditing(true);
-                }}
-              >
-                {getBadgeText ? getBadgeText(value) : value.toString()}
-                <Icon
-                  style={{
-                    cursor: "pointer",
-                    paddingLeft: 3,
-                    width: 20,
-                    height: 20,
-                  }}
-                  viewBox={{ width: 20, height: 20 }}
-                  paths={[
-                    {
-                      d: "M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z",
-                      stroke: "black",
-                    },
-                  ]}
-                  ariaLabel="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    removeItem(index);
-                  }}
-                />
-              </Badge>
-            );
-          })}
-        </ScrollView>
-      )}
-      <Divider orientation="horizontal" marginTop={5} />
-    </React.Fragment>
-  );
-  if (lengthLimit !== undefined && items.length >= lengthLimit && !isEditing) {
-    return (
-      <React.Fragment>
-        {labelElement}
-        {arraySection}
-      </React.Fragment>
-    );
-  }
-  return (
-    <React.Fragment>
-      {labelElement}
-      {isEditing && children}
-      {!isEditing ? (
-        <>
-          <Button
-            onClick={() => {
-              setIsEditing(true);
-            }}
-          >
-            Add item
-          </Button>
-          {errorMessage && hasError && (
-            <Text color={errorStyles.color} fontSize={errorStyles.fontSize}>
-              {errorMessage}
-            </Text>
-          )}
-        </>
-      ) : (
-        <Flex justifyContent="flex-end">
-          {(currentFieldValue || isEditing) && (
-            <Button
-              children="Cancel"
-              type="button"
-              size="small"
-              onClick={() => {
-                setFieldValue(defaultFieldValue);
-                setIsEditing(false);
-                setSelectedBadgeIndex(undefined);
-              }}
-            ></Button>
-          )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
-            {selectedBadgeIndex !== undefined ? "Save" : "Add"}
-          </Button>
-        </Flex>
-      )}
-      {arraySection}
-    </React.Fragment>
-  );
-}
-export default function UserCreateForm(props) {
+export default function UserInfoCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -195,42 +26,43 @@ export default function UserCreateForm(props) {
     familyName: "",
     givenName: "",
     email: "",
-    nickName: "",
     phoneNumber: "",
-    birthDay: "",
-    team: [],
+    birthday: "",
+    sub: "",
+    createdAt: "",
+    updateAt: "",
   };
   const [familyName, setFamilyName] = React.useState(initialValues.familyName);
   const [givenName, setGivenName] = React.useState(initialValues.givenName);
   const [email, setEmail] = React.useState(initialValues.email);
-  const [nickName, setNickName] = React.useState(initialValues.nickName);
   const [phoneNumber, setPhoneNumber] = React.useState(
     initialValues.phoneNumber
   );
-  const [birthDay, setBirthDay] = React.useState(initialValues.birthDay);
-  const [team, setTeam] = React.useState(initialValues.team);
+  const [birthday, setBirthday] = React.useState(initialValues.birthday);
+  const [sub, setSub] = React.useState(initialValues.sub);
+  const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
+  const [updateAt, setUpdateAt] = React.useState(initialValues.updateAt);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setFamilyName(initialValues.familyName);
     setGivenName(initialValues.givenName);
     setEmail(initialValues.email);
-    setNickName(initialValues.nickName);
     setPhoneNumber(initialValues.phoneNumber);
-    setBirthDay(initialValues.birthDay);
-    setTeam(initialValues.team);
-    setCurrentTeamValue("");
+    setBirthday(initialValues.birthday);
+    setSub(initialValues.sub);
+    setCreatedAt(initialValues.createdAt);
+    setUpdateAt(initialValues.updateAt);
     setErrors({});
   };
-  const [currentTeamValue, setCurrentTeamValue] = React.useState("");
-  const teamRef = React.createRef();
   const validations = {
     familyName: [{ type: "Required" }],
     givenName: [{ type: "Required" }],
     email: [{ type: "Required" }],
-    nickName: [],
     phoneNumber: [{ type: "Required" }],
-    birthDay: [{ type: "Required" }],
-    team: [],
+    birthday: [],
+    sub: [{ type: "Required" }],
+    createdAt: [],
+    updateAt: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -261,10 +93,11 @@ export default function UserCreateForm(props) {
           familyName,
           givenName,
           email,
-          nickName,
           phoneNumber,
-          birthDay,
-          team,
+          birthday,
+          sub,
+          createdAt,
+          updateAt,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -294,7 +127,7 @@ export default function UserCreateForm(props) {
               modelFields[key] = undefined;
             }
           });
-          await DataStore.save(new User(modelFields));
+          await DataStore.save(new UserInfo(modelFields));
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -307,7 +140,7 @@ export default function UserCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "UserCreateForm")}
+      {...getOverrideProps(overrides, "UserInfoCreateForm")}
       {...rest}
     >
       <TextField
@@ -322,10 +155,11 @@ export default function UserCreateForm(props) {
               familyName: value,
               givenName,
               email,
-              nickName,
               phoneNumber,
-              birthDay,
-              team,
+              birthday,
+              sub,
+              createdAt,
+              updateAt,
             };
             const result = onChange(modelFields);
             value = result?.familyName ?? value;
@@ -352,10 +186,11 @@ export default function UserCreateForm(props) {
               familyName,
               givenName: value,
               email,
-              nickName,
               phoneNumber,
-              birthDay,
-              team,
+              birthday,
+              sub,
+              createdAt,
+              updateAt,
             };
             const result = onChange(modelFields);
             value = result?.givenName ?? value;
@@ -382,10 +217,11 @@ export default function UserCreateForm(props) {
               familyName,
               givenName,
               email: value,
-              nickName,
               phoneNumber,
-              birthDay,
-              team,
+              birthday,
+              sub,
+              createdAt,
+              updateAt,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -401,36 +237,6 @@ export default function UserCreateForm(props) {
         {...getOverrideProps(overrides, "email")}
       ></TextField>
       <TextField
-        label="Nick name"
-        isRequired={false}
-        isReadOnly={false}
-        value={nickName}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              familyName,
-              givenName,
-              email,
-              nickName: value,
-              phoneNumber,
-              birthDay,
-              team,
-            };
-            const result = onChange(modelFields);
-            value = result?.nickName ?? value;
-          }
-          if (errors.nickName?.hasError) {
-            runValidationTasks("nickName", value);
-          }
-          setNickName(value);
-        }}
-        onBlur={() => runValidationTasks("nickName", nickName)}
-        errorMessage={errors.nickName?.errorMessage}
-        hasError={errors.nickName?.hasError}
-        {...getOverrideProps(overrides, "nickName")}
-      ></TextField>
-      <TextField
         label="Phone number"
         isRequired={true}
         isReadOnly={false}
@@ -442,10 +248,11 @@ export default function UserCreateForm(props) {
               familyName,
               givenName,
               email,
-              nickName,
               phoneNumber: value,
-              birthDay,
-              team,
+              birthday,
+              sub,
+              createdAt,
+              updateAt,
             };
             const result = onChange(modelFields);
             value = result?.phoneNumber ?? value;
@@ -461,10 +268,10 @@ export default function UserCreateForm(props) {
         {...getOverrideProps(overrides, "phoneNumber")}
       ></TextField>
       <TextField
-        label="Birth day"
-        isRequired={true}
+        label="Birthday"
+        isRequired={false}
         isReadOnly={false}
-        value={birthDay}
+        value={birthday}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -472,72 +279,118 @@ export default function UserCreateForm(props) {
               familyName,
               givenName,
               email,
-              nickName,
               phoneNumber,
-              birthDay: value,
-              team,
+              birthday: value,
+              sub,
+              createdAt,
+              updateAt,
             };
             const result = onChange(modelFields);
-            value = result?.birthDay ?? value;
+            value = result?.birthday ?? value;
           }
-          if (errors.birthDay?.hasError) {
-            runValidationTasks("birthDay", value);
+          if (errors.birthday?.hasError) {
+            runValidationTasks("birthday", value);
           }
-          setBirthDay(value);
+          setBirthday(value);
         }}
-        onBlur={() => runValidationTasks("birthDay", birthDay)}
-        errorMessage={errors.birthDay?.errorMessage}
-        hasError={errors.birthDay?.hasError}
-        {...getOverrideProps(overrides, "birthDay")}
+        onBlur={() => runValidationTasks("birthday", birthday)}
+        errorMessage={errors.birthday?.errorMessage}
+        hasError={errors.birthday?.hasError}
+        {...getOverrideProps(overrides, "birthday")}
       ></TextField>
-      <ArrayField
-        onChange={async (items) => {
-          let values = items;
+      <TextField
+        label="Sub"
+        isRequired={true}
+        isReadOnly={false}
+        value={sub}
+        onChange={(e) => {
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               familyName,
               givenName,
               email,
-              nickName,
               phoneNumber,
-              birthDay,
-              team: values,
+              birthday,
+              sub: value,
+              createdAt,
+              updateAt,
             };
             const result = onChange(modelFields);
-            values = result?.team ?? values;
+            value = result?.sub ?? value;
           }
-          setTeam(values);
-          setCurrentTeamValue("");
+          if (errors.sub?.hasError) {
+            runValidationTasks("sub", value);
+          }
+          setSub(value);
         }}
-        currentFieldValue={currentTeamValue}
-        label={"Team"}
-        items={team}
-        hasError={errors?.team?.hasError}
-        errorMessage={errors?.team?.errorMessage}
-        setFieldValue={setCurrentTeamValue}
-        inputFieldRef={teamRef}
-        defaultFieldValue={""}
-      >
-        <TextField
-          label="Team"
-          isRequired={false}
-          isReadOnly={false}
-          value={currentTeamValue}
-          onChange={(e) => {
-            let { value } = e.target;
-            if (errors.team?.hasError) {
-              runValidationTasks("team", value);
-            }
-            setCurrentTeamValue(value);
-          }}
-          onBlur={() => runValidationTasks("team", currentTeamValue)}
-          errorMessage={errors.team?.errorMessage}
-          hasError={errors.team?.hasError}
-          ref={teamRef}
-          labelHidden={true}
-          {...getOverrideProps(overrides, "team")}
-        ></TextField>
-      </ArrayField>
+        onBlur={() => runValidationTasks("sub", sub)}
+        errorMessage={errors.sub?.errorMessage}
+        hasError={errors.sub?.hasError}
+        {...getOverrideProps(overrides, "sub")}
+      ></TextField>
+      <TextField
+        label="Created at"
+        isRequired={false}
+        isReadOnly={false}
+        value={createdAt}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              familyName,
+              givenName,
+              email,
+              phoneNumber,
+              birthday,
+              sub,
+              createdAt: value,
+              updateAt,
+            };
+            const result = onChange(modelFields);
+            value = result?.createdAt ?? value;
+          }
+          if (errors.createdAt?.hasError) {
+            runValidationTasks("createdAt", value);
+          }
+          setCreatedAt(value);
+        }}
+        onBlur={() => runValidationTasks("createdAt", createdAt)}
+        errorMessage={errors.createdAt?.errorMessage}
+        hasError={errors.createdAt?.hasError}
+        {...getOverrideProps(overrides, "createdAt")}
+      ></TextField>
+      <TextField
+        label="Update at"
+        isRequired={false}
+        isReadOnly={false}
+        value={updateAt}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              familyName,
+              givenName,
+              email,
+              phoneNumber,
+              birthday,
+              sub,
+              createdAt,
+              updateAt: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.updateAt ?? value;
+          }
+          if (errors.updateAt?.hasError) {
+            runValidationTasks("updateAt", value);
+          }
+          setUpdateAt(value);
+        }}
+        onBlur={() => runValidationTasks("updateAt", updateAt)}
+        errorMessage={errors.updateAt?.errorMessage}
+        hasError={errors.updateAt?.hasError}
+        {...getOverrideProps(overrides, "updateAt")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

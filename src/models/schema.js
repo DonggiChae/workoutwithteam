@@ -35,18 +35,11 @@ export const schema = {
                     "name": "nickName",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "phoneNumber": {
                     "name": "phoneNumber",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "untitledfield": {
-                    "name": "untitledfield",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -71,7 +64,7 @@ export const schema = {
                     "name": "WorkoutTeams",
                     "isArray": true,
                     "type": {
-                        "model": "WorkoutTeam"
+                        "model": "UserWorkoutTeam"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -79,7 +72,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "userID"
+                            "user"
                         ]
                     }
                 },
@@ -307,12 +300,21 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "userID": {
-                    "name": "userID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
+                "users": {
+                    "name": "users",
+                    "isArray": true,
+                    "type": {
+                        "model": "UserWorkoutTeam"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "workoutTeam"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -344,15 +346,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byUser",
-                        "fields": [
-                            "userID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -482,6 +475,104 @@ export const schema = {
                                     "read"
                                 ]
                             }
+                        ]
+                    }
+                }
+            ]
+        },
+        "UserWorkoutTeam": {
+            "name": "UserWorkoutTeam",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "userId": {
+                    "name": "userId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "workoutTeamId": {
+                    "name": "workoutTeamId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "user": {
+                    "name": "user",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "userId"
+                        ]
+                    }
+                },
+                "workoutTeam": {
+                    "name": "workoutTeam",
+                    "isArray": false,
+                    "type": {
+                        "model": "WorkoutTeam"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "workoutTeamId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "UserWorkoutTeams",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byWorkoutTeam",
+                        "fields": [
+                            "workoutTeamId"
                         ]
                     }
                 }
@@ -1544,5 +1635,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.3",
-    "version": "2a54f4e4ecd4b3cd63d063429e873b19"
+    "version": "ceffe8a3995af92f06bc215b35a21ead"
 };

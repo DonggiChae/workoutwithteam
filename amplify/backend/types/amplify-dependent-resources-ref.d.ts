@@ -20,8 +20,17 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolName": "string"
     }
   },
+  "function": {
+    "CreateUserData": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  },
   "storage": {
-    "s3workoutwithteamstorageafb7f0e8": {
+    "s3workoutwithteamstoragead190a61": {
       "BucketName": "string",
       "Region": "string"
     }

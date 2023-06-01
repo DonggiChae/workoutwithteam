@@ -469,12 +469,11 @@ type EagerUser = {
   readonly familyName: string;
   readonly givenName: string;
   readonly email: string;
-  readonly nickName: string;
+  readonly nickName?: string | null;
   readonly phoneNumber: string;
-  readonly untitledfield: string;
   readonly birthDay: string;
   readonly team?: (string | null)[] | null;
-  readonly WorkoutTeams?: (WorkoutTeam | null)[] | null;
+  readonly WorkoutTeams?: (UserWorkoutTeam | null)[] | null;
   readonly WorkoutRecords?: (WorkoutRecord | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -489,12 +488,11 @@ type LazyUser = {
   readonly familyName: string;
   readonly givenName: string;
   readonly email: string;
-  readonly nickName: string;
+  readonly nickName?: string | null;
   readonly phoneNumber: string;
-  readonly untitledfield: string;
   readonly birthDay: string;
   readonly team?: (string | null)[] | null;
-  readonly WorkoutTeams: AsyncCollection<WorkoutTeam>;
+  readonly WorkoutTeams: AsyncCollection<UserWorkoutTeam>;
   readonly WorkoutRecords: AsyncCollection<WorkoutRecord>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -554,7 +552,7 @@ type EagerWorkoutTeam = {
   readonly numberOfMembers?: number | null;
   readonly WorkoutRecord?: WorkoutRecord | null;
   readonly members?: Member | null;
-  readonly userID: string;
+  readonly users?: (UserWorkoutTeam | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly workoutTeamWorkoutRecordId?: string | null;
@@ -572,7 +570,7 @@ type LazyWorkoutTeam = {
   readonly numberOfMembers?: number | null;
   readonly WorkoutRecord: AsyncItem<WorkoutRecord | undefined>;
   readonly members?: Member | null;
-  readonly userID: string;
+  readonly users: AsyncCollection<UserWorkoutTeam>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly workoutTeamWorkoutRecordId?: string | null;
@@ -622,4 +620,38 @@ export declare type WorkoutRecord = LazyLoading extends LazyLoadingDisabled ? Ea
 
 export declare const WorkoutRecord: (new (init: ModelInit<WorkoutRecord>) => WorkoutRecord) & {
   copyOf(source: WorkoutRecord, mutator: (draft: MutableModel<WorkoutRecord>) => MutableModel<WorkoutRecord> | void): WorkoutRecord;
+}
+
+type EagerUserWorkoutTeam = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserWorkoutTeam, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly userId?: string | null;
+  readonly workoutTeamId?: string | null;
+  readonly user: User;
+  readonly workoutTeam: WorkoutTeam;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyUserWorkoutTeam = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserWorkoutTeam, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly userId?: string | null;
+  readonly workoutTeamId?: string | null;
+  readonly user: AsyncItem<User>;
+  readonly workoutTeam: AsyncItem<WorkoutTeam>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type UserWorkoutTeam = LazyLoading extends LazyLoadingDisabled ? EagerUserWorkoutTeam : LazyUserWorkoutTeam
+
+export declare const UserWorkoutTeam: (new (init: ModelInit<UserWorkoutTeam>) => UserWorkoutTeam) & {
+  copyOf(source: UserWorkoutTeam, mutator: (draft: MutableModel<UserWorkoutTeam>) => MutableModel<UserWorkoutTeam> | void): UserWorkoutTeam;
 }

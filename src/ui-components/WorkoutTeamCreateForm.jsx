@@ -196,6 +196,7 @@ export default function WorkoutTeamCreateForm(props) {
     description: "",
     sports: [],
     numberOfMembers: "",
+    members: "",
   };
   const [teamName, setTeamName] = React.useState(initialValues.teamName);
   const [description, setDescription] = React.useState(
@@ -205,6 +206,7 @@ export default function WorkoutTeamCreateForm(props) {
   const [numberOfMembers, setNumberOfMembers] = React.useState(
     initialValues.numberOfMembers
   );
+  const [members, setMembers] = React.useState(initialValues.members);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setTeamName(initialValues.teamName);
@@ -212,6 +214,7 @@ export default function WorkoutTeamCreateForm(props) {
     setSports(initialValues.sports);
     setCurrentSportsValue("");
     setNumberOfMembers(initialValues.numberOfMembers);
+    setMembers(initialValues.members);
     setErrors({});
   };
   const [currentSportsValue, setCurrentSportsValue] = React.useState("");
@@ -221,6 +224,7 @@ export default function WorkoutTeamCreateForm(props) {
     description: [],
     sports: [{ type: "Required" }],
     numberOfMembers: [],
+    members: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -252,6 +256,7 @@ export default function WorkoutTeamCreateForm(props) {
           description,
           sports,
           numberOfMembers,
+          members,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -310,6 +315,7 @@ export default function WorkoutTeamCreateForm(props) {
               description,
               sports,
               numberOfMembers,
+              members,
             };
             const result = onChange(modelFields);
             value = result?.teamName ?? value;
@@ -337,6 +343,7 @@ export default function WorkoutTeamCreateForm(props) {
               description: value,
               sports,
               numberOfMembers,
+              members,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -360,6 +367,7 @@ export default function WorkoutTeamCreateForm(props) {
               description,
               sports: values,
               numberOfMembers,
+              members,
             };
             const result = onChange(modelFields);
             values = result?.sports ?? values;
@@ -413,6 +421,7 @@ export default function WorkoutTeamCreateForm(props) {
               description,
               sports,
               numberOfMembers: value,
+              members,
             };
             const result = onChange(modelFields);
             value = result?.numberOfMembers ?? value;
@@ -426,6 +435,34 @@ export default function WorkoutTeamCreateForm(props) {
         errorMessage={errors.numberOfMembers?.errorMessage}
         hasError={errors.numberOfMembers?.hasError}
         {...getOverrideProps(overrides, "numberOfMembers")}
+      ></TextField>
+      <TextField
+        label="Members"
+        isRequired={true}
+        isReadOnly={false}
+        value={members}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              teamName,
+              description,
+              sports,
+              numberOfMembers,
+              members: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.members ?? value;
+          }
+          if (errors.members?.hasError) {
+            runValidationTasks("members", value);
+          }
+          setMembers(value);
+        }}
+        onBlur={() => runValidationTasks("members", members)}
+        errorMessage={errors.members?.errorMessage}
+        hasError={errors.members?.hasError}
+        {...getOverrideProps(overrides, "members")}
       ></TextField>
       <Flex
         justifyContent="space-between"

@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3workoutwithteamstoragead190a61",
+  "bucketName": "workoutwithteam-storage-ad190a61",
+  "policyUUID": "e6aa252b",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

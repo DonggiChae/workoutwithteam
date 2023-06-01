@@ -198,7 +198,6 @@ export default function UserUpdateForm(props) {
     email: "",
     nickName: "",
     phoneNumber: "",
-    untitledfield: "",
     birthDay: "",
     team: [],
   };
@@ -208,9 +207,6 @@ export default function UserUpdateForm(props) {
   const [nickName, setNickName] = React.useState(initialValues.nickName);
   const [phoneNumber, setPhoneNumber] = React.useState(
     initialValues.phoneNumber
-  );
-  const [untitledfield, setUntitledfield] = React.useState(
-    initialValues.untitledfield
   );
   const [birthDay, setBirthDay] = React.useState(initialValues.birthDay);
   const [team, setTeam] = React.useState(initialValues.team);
@@ -224,7 +220,6 @@ export default function UserUpdateForm(props) {
     setEmail(cleanValues.email);
     setNickName(cleanValues.nickName);
     setPhoneNumber(cleanValues.phoneNumber);
-    setUntitledfield(cleanValues.untitledfield);
     setBirthDay(cleanValues.birthDay);
     setTeam(cleanValues.team ?? []);
     setCurrentTeamValue("");
@@ -247,9 +242,8 @@ export default function UserUpdateForm(props) {
     familyName: [{ type: "Required" }],
     givenName: [{ type: "Required" }],
     email: [{ type: "Required" }],
-    nickName: [{ type: "Required" }],
+    nickName: [],
     phoneNumber: [{ type: "Required" }],
-    untitledfield: [{ type: "Required" }],
     birthDay: [{ type: "Required" }],
     team: [],
   };
@@ -284,7 +278,6 @@ export default function UserUpdateForm(props) {
           email,
           nickName,
           phoneNumber,
-          untitledfield,
           birthDay,
           team,
         };
@@ -347,7 +340,6 @@ export default function UserUpdateForm(props) {
               email,
               nickName,
               phoneNumber,
-              untitledfield,
               birthDay,
               team,
             };
@@ -378,7 +370,6 @@ export default function UserUpdateForm(props) {
               email,
               nickName,
               phoneNumber,
-              untitledfield,
               birthDay,
               team,
             };
@@ -409,7 +400,6 @@ export default function UserUpdateForm(props) {
               email: value,
               nickName,
               phoneNumber,
-              untitledfield,
               birthDay,
               team,
             };
@@ -428,7 +418,7 @@ export default function UserUpdateForm(props) {
       ></TextField>
       <TextField
         label="Nick name"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={nickName}
         onChange={(e) => {
@@ -440,7 +430,6 @@ export default function UserUpdateForm(props) {
               email,
               nickName: value,
               phoneNumber,
-              untitledfield,
               birthDay,
               team,
             };
@@ -471,7 +460,6 @@ export default function UserUpdateForm(props) {
               email,
               nickName,
               phoneNumber: value,
-              untitledfield,
               birthDay,
               team,
             };
@@ -489,37 +477,6 @@ export default function UserUpdateForm(props) {
         {...getOverrideProps(overrides, "phoneNumber")}
       ></TextField>
       <TextField
-        label="Untitledfield"
-        isRequired={true}
-        isReadOnly={false}
-        value={untitledfield}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              familyName,
-              givenName,
-              email,
-              nickName,
-              phoneNumber,
-              untitledfield: value,
-              birthDay,
-              team,
-            };
-            const result = onChange(modelFields);
-            value = result?.untitledfield ?? value;
-          }
-          if (errors.untitledfield?.hasError) {
-            runValidationTasks("untitledfield", value);
-          }
-          setUntitledfield(value);
-        }}
-        onBlur={() => runValidationTasks("untitledfield", untitledfield)}
-        errorMessage={errors.untitledfield?.errorMessage}
-        hasError={errors.untitledfield?.hasError}
-        {...getOverrideProps(overrides, "untitledfield")}
-      ></TextField>
-      <TextField
         label="Birth day"
         isRequired={true}
         isReadOnly={false}
@@ -533,7 +490,6 @@ export default function UserUpdateForm(props) {
               email,
               nickName,
               phoneNumber,
-              untitledfield,
               birthDay: value,
               team,
             };
@@ -560,7 +516,6 @@ export default function UserUpdateForm(props) {
               email,
               nickName,
               phoneNumber,
-              untitledfield,
               birthDay,
               team: values,
             };
