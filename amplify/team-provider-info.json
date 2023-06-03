@@ -9,23 +9,28 @@
       "UnauthRoleName": "amplify-workoutwithteam-staging-94040-unauthRole",
       "StackName": "amplify-workoutwithteam-staging-94040",
       "StackId": "arn:aws:cloudformation:ap-northeast-2:860869192650:stack/amplify-workoutwithteam-staging-94040/348b91a0-ff97-11ed-9a4b-02c4b55e4052",
-      "AmplifyAppId": "d18itjv7ddk6ne"
+      "AmplifyAppId": "d18itjv7ddk6ne",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-workoutwithteam-staging-94040-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "workoutwithteam": {}
+      },
+      "function": {
+        "CreateUserData": {
+          "deploymentBucketName": "amplify-workoutwithteam-staging-94040-deployment",
+          "s3Key": "amplify-builds/CreateUserData-4638656e4e62452b6456-build.zip"
+        },
+        "workoutwithteamPostConfirmation": {
+          "deploymentBucketName": "amplify-workoutwithteam-staging-94040-deployment",
+          "s3Key": "amplify-builds/workoutwithteamPostConfirmation-65504e4b4e6b726a5445-build.zip"
+        }
       },
       "storage": {
         "s3workoutwithteamstoragead190a61": {}
       },
       "api": {
         "workoutwithteam": {}
-      },
-      "function": {
-        "CreateUserData": {
-          "deploymentBucketName": "amplify-workoutwithteam-staging-94040-deployment",
-          "s3Key": "amplify-builds/CreateUserData-314131456148542f427a-build.zip"
-        }
       }
     }
   }

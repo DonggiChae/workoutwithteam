@@ -1,0 +1,8 @@
+[
+  {
+    "Action": ["dynamodb:PutItem"],
+    "Resource": [
+      "arn:aws:dynamodb:ap-northeast-2:860869192650:table/UserInfo-mnbkaznp4fejbelvbdxypbhq6a-staging"
+    ]
+  }
+]

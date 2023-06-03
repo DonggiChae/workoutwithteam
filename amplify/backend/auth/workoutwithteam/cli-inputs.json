@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "workouad52ebb7",
     "userPoolName": "workoutwithteam",
     "autoVerifiedAttributes": [
@@ -17,28 +17,36 @@
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Verification code: {####}",
     "emailVerificationMessage": "Verification code: {####}",
-    "defaultPasswordPolicy": false,
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": 10,
     "passwordPolicyCharacters": [
       "Requires Lowercase",
+      "Requires Uppercase",
       "Requires Numbers",
-      "Requires Symbols",
-      "Requires Uppercase"
+      "Requires Symbols"
     ],
     "requiredAttributes": [
       "email",
       "birthdate",
       "family_name",
-      "phone_number",
-      "given_name"
+      "given_name",
+      "phone_number"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [],
-    "userpoolClientReadAttributes": [],
+    "userpoolClientWriteAttributes": [
+      "birthdate",
+      "email",
+      "family_name",
+      "given_name",
+      "phone_number"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
     "userpoolClientLambdaRole": "workouad52ebb7_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "sharedId": "ad52ebb7",
     "resourceName": "workoutwithteam",
     "authSelections": "identityPoolAndUserPool",
@@ -50,15 +58,14 @@
     "userPoolGroups": false,
     "userPoolGroupList": [],
     "adminQueries": false,
-    "thirdPartyAuth": false,
+    "thirdPartyAuth": true,
     "authProviders": [],
     "hostedUI": true,
     "hostedUIDomainName": "73f7ohyaylsy",
     "authProvidersUserPool": [
       "Google"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"birthdate\":\"birthdays\",\"family_name\":\"family_name\",\"phone_number\":\"phoneNumbers\",\"given_name\":\"given_name\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000\",\"https://main.d18itjv7ddk6ne.amplifyapp.com\"],\"LogoutURLs\":[\"http://localhost:3000\",\"https://main.d18itjv7ddk6ne.amplifyapp.com\"]}",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"birthdate\":\"birthdays\",\"family_name\":\"family_name\",\"given_name\":\"given_name\",\"phone_number\":\"phoneNumbers\",\"username\":\"sub\"}}]",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
     "authRoleArn": {
@@ -74,6 +81,27 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "workoutwithteamPostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "triggers": {
+      "PostConfirmation": [
+        "custom"
+      ]
+    },
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000\",\"https://main.d18itjv7ddk6ne.amplifyapp.com\"],\"LogoutURLs\":[\"http://localhost:3000\",\"https://main.d18itjv7ddk6ne.amplifyapp.com\"]}",
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"workoutwithteamPostConfirmation\"\n  }\n]",
+    "permissions": []
   }
 }

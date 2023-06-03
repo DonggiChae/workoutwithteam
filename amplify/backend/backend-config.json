@@ -25,7 +25,17 @@
   "auth": {
     "workoutwithteam": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "workoutwithteamPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OPTIONAL",
         "mfaTypes": [
@@ -35,9 +45,9 @@
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [
             "REQUIRES_LOWERCASE",
+            "REQUIRES_UPPERCASE",
             "REQUIRES_NUMBERS",
-            "REQUIRES_SYMBOLS",
-            "REQUIRES_UPPERCASE"
+            "REQUIRES_SYMBOLS"
           ],
           "passwordPolicyMinLength": 10
         },
@@ -45,8 +55,8 @@
           "EMAIL",
           "BIRTHDATE",
           "FAMILY_NAME",
-          "PHONE_NUMBER",
-          "GIVEN_NAME"
+          "GIVEN_NAME",
+          "PHONE_NUMBER"
         ],
         "socialProviders": [
           "GOOGLE"
@@ -67,6 +77,11 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "workoutwithteamPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -83,6 +98,22 @@
         {
           "category": "function",
           "resourceName": "CreateUserData"
+        }
+      ]
+    },
+    "AMPLIFY_function_workoutwithteamPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "workoutwithteamPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_workoutwithteamPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "workoutwithteamPostConfirmation"
         }
       ]
     }
