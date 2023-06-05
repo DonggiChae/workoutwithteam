@@ -17,13 +17,9 @@
         "workoutwithteam": {}
       },
       "function": {
-        "CreateUserData": {
-          "deploymentBucketName": "amplify-workoutwithteam-staging-94040-deployment",
-          "s3Key": "amplify-builds/CreateUserData-4638656e4e62452b6456-build.zip"
-        },
         "workoutwithteamPostConfirmation": {
           "deploymentBucketName": "amplify-workoutwithteam-staging-94040-deployment",
-          "s3Key": "amplify-builds/workoutwithteamPostConfirmation-65504e4b4e6b726a5445-build.zip"
+          "s3Key": "amplify-builds/workoutwithteamPostConfirmation-5a7a575a626338436941-build.zip"
         }
       },
       "storage": {

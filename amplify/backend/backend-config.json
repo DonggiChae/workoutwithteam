@@ -73,11 +73,6 @@
     }
   },
   "function": {
-    "CreateUserData": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "workoutwithteamPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -85,22 +80,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_CreateUserData_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "CreateUserData"
-        }
-      ]
-    },
-    "AMPLIFY_function_CreateUserData_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "CreateUserData"
-        }
-      ]
-    },
     "AMPLIFY_function_workoutwithteamPostConfirmation_deploymentBucketName": {
       "usedBy": [
         {

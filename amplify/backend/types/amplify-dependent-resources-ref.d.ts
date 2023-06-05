@@ -21,13 +21,6 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "CreateUserData": {
-      "Arn": "string",
-      "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
-      "Name": "string",
-      "Region": "string"
-    },
     "workoutwithteamPostConfirmation": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
